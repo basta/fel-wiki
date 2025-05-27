@@ -1,0 +1,76 @@
+# Determinant, část 2
+## Lineární algebra - Lecture 2
+**Speaker:** Jiří Velebil
+
+This lecture, "Determinant, Part 2," continues the exploration of fundamental concepts in [linear algebra](https://felwiki.basta.one/en/Concepts/line-rn-prostor-nad-t-lesem-f-linear-space-over-field-f-vector-space-over-field-f_mc_lineární-prostor-nad-tělesem-f-linear-space-over-field-f---vector-space-over-field-f.md), focusing on advanced topics related to the [determinant](https://felwiki.basta.one/en/Concepts/determinant-det-a_mc_determinant-deta.md) of square [matrices](https://felwiki.basta.one/en/Concepts/matice_mc_matice.md). The session covers the intricate details of [Laplace Expansion of Determinant](https://felwiki.basta.one/en/Concepts/laplace-v-rozvoj-determinantu-laplace-expansion-of-determinant_mc_laplaceův-rozvoj-determinantu-laplace-expansion-of-determinant.md), introduces the essential concepts of [algebraic complements](https://felwiki.basta.one/en/Concepts/algebraick-dopln-k-posice-i-j-algebraic-complement-of-position-i-j_mc_algebraický-doplněk-posice-ij-algebraic-complement-of-position-ij.md) and [adjoint matrices](https://felwiki.basta.one/en/Concepts/adjungovan-matice-adjoint-matrix_mc_adjungovaná-matice-adjoint-matrix.md), and demonstrates their critical application in finding the [inverse of a matrix](https://felwiki.basta.one/en/Concepts/invertibilita-matice_mc_invertibilita-matice.md). A significant portion of the lecture is dedicated to [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md) for solving systems of linear equations, complete with its geometric interpretation and practical considerations for systems involving parameters. Throughout, the lecture emphasizes the computational efficiency of various methods, guiding students on when to best utilize specific techniques like [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md) versus [Gaussian Elimination Method (GEM)](https://felwiki.basta.one/en/Concepts/gaussova-elimina-n-metoda-gem_mc_gaussova-eliminační-metoda-gem.md).
+
+### Reacquainting with Determinants and Laplace Expansion
+
+The lecture began with a brief recap of the previous session, recalling the definition of the [determinant](https://felwiki.basta.one/en/Concepts/determinant-tvercov-matice-det-a-or-a_mc_determinant-čtvercové-matice-deta-or-a.md) of a square matrix (often defined using [permutations](https://felwiki.basta.one/en/Concepts/permutace_mc_permutace.md)) and its basic calculation methods, including direct definition (which requires knowledge of symmetric groups $S_n$) and via [Gaussian Elimination Method (GEM)](https://felwiki.basta.one/en/Concepts/v-po-et-determinantu-pomoc-gem_mc_výpočet-determinantu-pomocí-gem.md). A key takeaway from the previous lecture was that a square matrix $A$ is [regular](https://felwiki.basta.one/en/Concepts/regul-rn-matice-regular-matrix_mc_regulární-matice-regular-matrix.md) if and only if $\det(A) \neq 0$.
+
+A central theme of this lecture was the [Laplace Expansion of Determinant](https://felwiki.basta.one/en/Concepts/laplace-v-rozvoj-determinantu-laplace-expansion-of-determinant_mc_laplaceův-rozvoj-determinantu-laplace-expansion-of-determinant.md), a powerful recursive method for computation. The [determinant](https://felwiki.basta.one/en/Concepts/determinant-det-a_mc_determinant-deta.md) $\det(A)$ of a square matrix $A = (a_1, \dots, a_n)$ is linear in each column. This property leads to the fundamental [Laplace expansion formula](https://felwiki.basta.one/en/Concepts/laplace-v-rozvoj-determinantu-laplace-expansion-of-determinant_mc_laplaceův-rozvoj-determinantu-laplace-expansion-of-determinant.md) for the determinant along the $j$-th column:
+
+$$ \det(A) = \sum_{i=1}^{n} a_{ij} \det(a_1, \dots, a_{j-1}, e_i, a_{j+1}, \dots, a_n) $$
+
+Here, $e_i$ represents the standard basis vector. The term $A_{ij} = \det(a_1, \dots, a_{j-1}, e_i, a_{j+1}, \dots, a_n)$ is defined as the [algebraic complement of position (i,j)](https://felwiki.basta.one/en/Concepts/algebraick-dopln-k-posice-i-j-algebraic-complement-of-position-i-j_mc_algebraický-doplněk-posice-ij-algebraic-complement-of-position-ij.md) in matrix $A$. Practically, this [algebraic complement](https://felwiki.basta.one/en/Concepts/algebraick-dopln-k-posice-i-j-algebraic-complement-of-position-i-j_mc_algebraický-doplněk-posice-ij-algebraic-complement-of-position-ij.md) can be computed as:
+
+$$ A_{ij} = (-1)^{i+j} \cdot \det(A_{ij}) $$
+
+where $A_{ij}$ is the $(n-1) \times (n-1)$ matrix formed by removing the $i$-th row and $j$-th column from $A$. This recursive nature makes it a powerful theoretical tool. However, it's crucial to note that recursive computation of the [determinant](https://felwiki.basta.one/en/Concepts/determinant-det-a_mc_determinant-deta.md) (i.e., using [Laplace expansion](https://felwiki.basta.one/en/Concepts/laplace-v-rozvoj-determinantu-laplace-expansion-of-determinant_mc_laplaceův-rozvoj-determinantu-laplace-expansion-of-determinant.md)) has a computational complexity of $n!$, making it generally slow for large matrices. It is, however, particularly suitable for sparse matrices (matrices with many zeros) as many terms in the sum become zero. Since $\det(A^T) = \det(A)$, the expansion can also be performed along rows, not just columns.
+
+### Inverse Matrix via the Adjoint
+
+The lecture then introduced the concept of the [adjoint matrix](https://felwiki.basta.one/en/Concepts/adjungovan-matice-adjoint-matrix_mc_adjungovaná-matice-adjoint-matrix.md), denoted $\text{adj}(A)$. For an $n \times n$ matrix $A$, its [adjoint](https://felwiki.basta.one/en/Concepts/adjungovan-matice-adjoint-matrix_mc_adjungovaná-matice-adjoint-matrix.md) is defined as the transpose of the matrix of its [algebraic complements](https://felwiki.basta.one/en/Concepts/algebraick-dopln-k-posice-i-j-algebraic-complement-of-position-i-j_mc_algebraický-doplněk-posice-ij-algebraic-complement-of-position-ij.md). This concept is pivotal for finding the [inverse of a matrix](https://felwiki.basta.one/en/Concepts/invertibilita-matice_mc_invertibilita-matice.md).
+
+A significant theorem states the relationship:
+$$ A \cdot \text{adj}(A) = \det(A) \cdot E_n = \text{adj}(A) \cdot A $$
+where $E_n$ is the identity matrix. This relationship directly leads to the formula for the [inverse of a regular matrix](https://felwiki.basta.one/en/Concepts/invertibilita-matice_mc_invertibilita-matice.md):
+
+$$ A^{-1} = \det(A)^{-1} \cdot \text{adj}(A) $$
+
+This method for calculating $A^{-1}$ is computationally advantageous for 2x2 matrices and for large sparse matrices. For a general $2 \times 2$ matrix $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ that is [regular](https://felwiki.basta.one/en/Concepts/regul-rn-matice-regular-matrix_mc_regulární-matice-regular-matrix.md) (i.e., $\det(A) = ad - bc \neq 0$), its inverse is $A^{-1} = (ad-bc)^{-1} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$. For general large matrices, however, this method is computationally inefficient due to the large number of [determinants](https://felwiki.basta.one/en/Concepts/determinant-det-a_mc_determinant-deta.md) (of $(n-1) \times (n-1)$ submatrices) that need to be calculated.
+
+### Fundamental Properties of Determinants
+
+The lecture also reinforced several fundamental properties of the [determinant](https://felwiki.basta.one/en/Concepts/determinant-det-a_mc_determinant-deta.md) function, $\det: F^n \times \dots \times F^n \to F$:
+*   $\det(E_n) = 1$, where $E_n$ is the identity matrix.
+*   The multiplicative property: $\det(B \cdot A) = \det(B) \cdot \det(A)$.
+*   For a [regular matrix](https://felwiki.basta.one/en/Concepts/regul-rn-matice-regular-matrix_mc_regulární-matice-regular-matrix.md) $A$, $\det(A^{-1}) = (\det(A))^{-1}$. This follows directly from the multiplicative property: $1 = \det(E_n) = \det(A \cdot A^{-1}) = \det(A) \cdot \det(A^{-1})$.
+*   For any scalar $a$, $\det(a \cdot A) = a^n \det(A)$. This property stems from the [determinant's linearity](https://felwiki.basta.one/en/Concepts/linearita-v-po-tu-sou-adnic_mc_linearita-výpočtu-souřadnic.md) in each column.
+
+It was emphasized that, in general, $\det(A + B) \neq \det(A) + \det(B)$.
+
+### Solving Linear Systems with Cramer's Rule
+
+A significant application of the [determinant](https://felwiki.basta.one/en/Concepts/determinant-det-a_mc_determinant-deta.md) is in solving systems of linear equations. For a [system of linear equations](https://felwiki.basta.one/en/Concepts/soustava-line-rn-ch-rovnic_mc_soustava-lineárních-rovnic.md) $A \mathbf{x} = \mathbf{b}$ with a square matrix $A$, a unique solution exists if and only if $A$ is a [regular matrix](https://felwiki.basta.one/en/Concepts/regul-rn-matice-regular-matrix_mc_regulární-matice-regular-matrix.md). In this case, the unique solution is given by $\mathbf{x} = A^{-1} \mathbf{b}$.
+
+This leads to [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md), which provides an explicit formula for each component $x_j$ of the unique solution $\mathbf{x}$:
+
+$$ x_j = \det(A)^{-1} \cdot \det(a_1, \dots, a_{j-1}, b, a_{j+1}, \dots, a_n) $$
+
+Here, $a_k$ are the columns of matrix $A$, and $b$ is the column vector on the right-hand side. The numerator involves the [determinant](https://felwiki.basta.one/en/Concepts/determinant-det-a_mc_determinant-deta.md) of a matrix $A_j$ where the $j$-th column of $A$ has been replaced by the vector $\mathbf{b}$. For instance, for the system $\begin{pmatrix} 2 & 4 \\ -3 & 5 \end{pmatrix} \mathbf{x} = \begin{pmatrix} 1 \\ 6 \end{pmatrix}$, where $\det(A) = 22$, [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md) yields $x_1 = \det(\begin{smallmatrix} 1 & 4 \\ 6 & 5 \end{smallmatrix}) / 22 = -19/22$ and $x_2 = \det(\begin{smallmatrix} 2 & 1 \\ -3 & 6 \end{smallmatrix}) / 22 = 15/22$.
+
+### Geometric Interpretation of Cramer's Rule
+
+For $2 \times 2$ systems in $\mathbb{R}^2$, [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md) has a beautiful geometric interpretation. If we consider the system $A \mathbf{x} = \mathbf{b}$, where $A = (\mathbf{a}_1, \mathbf{a}_2)$, the solution $\mathbf{x} = (x_1, x_2)$ means that $\mathbf{b} = x_1 \mathbf{a}_1 + x_2 \mathbf{a}_2$.
+
+The determinant $\det(\mathbf{a}_1, \mathbf{a}_2)$ represents the signed area of the parallelogram formed by vectors $\mathbf{a}_1$ and $\mathbf{a}_2$. Similarly, $\det(\mathbf{b}, \mathbf{a}_2)$ represents the signed area of the parallelogram formed by $\mathbf{b}$ and $\mathbf{a}_2$. According to [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md), $x_1 = \det(\mathbf{b}, \mathbf{a}_2) / \det(\mathbf{a}_1, \mathbf{a}_2)$. This means $x_1$ is the ratio of these two parallelogram areas. Intuitively, this ratio geometrically scales $\mathbf{a}_1$ to contribute to $\mathbf{b}$'s component in the direction not spanned by $\mathbf{a}_2$. A similar logic applies to $x_2 = \det(\mathbf{a}_1, \mathbf{b}) / \det(\mathbf{a}_1, \mathbf{a}_2)$. This geometrical understanding extends to higher dimensions, where determinants represent the signed [volume of k-parallelepipeds](https://felwiki.basta.one/en/Concepts/objem-k-rovnob-nost-nu_mc_objem-k-rovnoběžnostěnu.md).
+
+### Solving Systems with Parameters: A Combined Approach
+
+When dealing with square systems of linear equations that include parameters, such as $p \in \mathbb{R}$, a combined approach using both [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md) and [Gaussian Elimination Method (GEM)](https://felwiki.basta.one/en/Concepts/gaussova-elimina-n-metoda-gem_mc_gaussova-eliminační-metoda-gem.md) is recommended.
+
+1.  **Phase 1 (Cramer's Rule):** Calculate the [determinant](https://felwiki.basta.one/en/Concepts/determinant-det-a_mc_determinant-deta.md) of the system matrix $A$. If $\det(A) \neq 0$, the matrix is [regular](https://felwiki.basta.one/en/Concepts/regul-rn-matice-regular-matrix_mc_regulární-matice-regular-matrix.md), and a unique solution exists. This solution can be found using [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md). For instance, in an example system, $\det(A) = (p-2)(p-17)$. For $p \notin \{2, 17\}$, a unique solution is guaranteed.
+2.  **Phase 2 (Gaussian Elimination Method - GEM):** For values of the parameter where $\det(A) = 0$ (i.e., where the matrix is singular), [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md) cannot be applied. In these cases, the [Gaussian Elimination Method (GEM)](https://felwiki.basta.one/en/Concepts/gaussova-elimina-n-metoda-gem_mc_gaussova-eliminační-metoda-gem.md) should be used to analyze the system.
+    *   If $p=2$, the example system was found to have infinitely many solutions, expressible as a particular solution plus the span of a basis for the null space.
+    *   If $p=17$, the example system was found to have no solution, which can be determined using the [Frobenius theorem](https://felwiki.basta.one/en/Concepts/frobeniova-v-ta-frobenius-theorem_mc_frobeniova-věta-frobenius-theorem.md) by comparing the rank of the system matrix and the augmented matrix.
+
+This two-phase approach ensures a comprehensive solution strategy for systems with parameters.
+
+### Key Takeaways
+
+*   **Recursive determinant computation** via [Laplace expansion](https://felwiki.basta.one/en/Concepts/laplace-v-rozvoj-determinantu-laplace-expansion-of-determinant_mc_laplaceův-rozvoj-determinantu-laplace-expansion-of-determinant.md) (row/column expansion) is generally computationally slow ($n!$ complexity) for large matrices but is highly effective for sparse matrices or smaller matrices (like $2 \times 2$ or $3 \times 3$).
+*   The method for computing the [matrix inverse](https://felwiki.basta.one/en/Concepts/invertibilita-matice_mc_invertibilita-matice.md) using the [adjoint matrix](https://felwiki.basta.one/en/Concepts/adjungovan-matice-adjoint-matrix_mc_adjungovaná-matice-adjoint-matrix.md) is advantageous for sparse matrices or for $2 \times 2$ matrices. In certain applications (e.g., cryptography), this method might be the only feasible option when working over more general algebraic structures than fields.
+*   For solving systems of linear equations with parameters, it is highly recommended to combine [Cramer's Rule](https://felwiki.basta.one/en/Concepts/cramerova-v-ta-cramer-s-rule_mc_cramerova-věta-cramers-rule.md) (when the system matrix is [regular](https://felwiki.basta.one/en/Concepts/regul-rn-matice-regular-matrix_mc_regulární-matice-regular-matrix.md)) with [Gaussian Elimination Method (GEM)](https://felwiki.basta.one/en/Concepts/gaussova-elimina-n-metoda-gem_mc_gaussova-eliminační-metoda-gem.md) (when the system matrix is singular).
+
+**Keywords:** Determinant, Linear Algebra, Matrix Inverse, Cramer's Rule, Laplace Expansion
